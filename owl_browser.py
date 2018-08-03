@@ -27,7 +27,7 @@ class MainWindow(QMainWindow):
 		self.tabs.setTabsClosable(True)
 		self.tabs.tabCloseRequested.connect(self.close_current_tab)
 
-		self.add_new_tab(QUrl('http://www.zhihu.com'), '主页')
+		self.add_new_tab(QUrl('http://www.zhihu.com'))
 
 		self.setCentralWidget(self.tabs)
 
@@ -41,27 +41,46 @@ class MainWindow(QMainWindow):
 		navigation_bar.setIconSize(QSize(16, 16))
 		self.addToolBar(navigation_bar)
 
-		# 添加前进、后退、停止加载和刷新的按钮
+		# 导航栏左侧控制按钮
 		back_button = QAction(QIcon('icons/back.png'), 'Back', self)
 		next_button = QAction(QIcon('icons/next.png'), 'Forward', self)
 		stop_button = QAction(QIcon('icons/cross.png'), 'stop', self)
 		reload_button = QAction(QIcon('icons/renew.png'), 'reload', self)
-		# home_button = QAction(QIcon('icons/owl.png'), 'home', self)
-		about_button = QAction(QIcon('icons/owl.png'), 'about', self)
 
+		# 导航栏左侧控制按钮点击事件
 		back_button.triggered.connect(self.tabs.currentWidget().back)
 		next_button.triggered.connect(self.tabs.currentWidget().forward)
 		stop_button.triggered.connect(self.tabs.currentWidget().stop)
 		reload_button.triggered.connect(self.tabs.currentWidget().reload)
-		# home_button.triggered.connect(self.go_to_homepage)
+
+		# 导航栏右侧书签
+		baidu_button = QAction(QIcon('icons/baidu.png'), 'baidu', self)
+		zhihu_button = QAction(QIcon('icons/zhihu.png'), 'zhihu', self)
+		github_button = QAction(QIcon('icons/github.png'), 'github', self)
+		about_button = QAction(QIcon('icons/owl.png'), 'about', self)
+
+		# 导航栏右侧书签点击事件
+		baidu_button.triggered.connect(self.go_to_baidu)
+		zhihu_button.triggered.connect(self.go_to_zhihu)
+		github_button.triggered.connect(self.go_to_github)
 		about_button.triggered.connect(self.about)
+
 		# 将按钮添加到导航栏上
+
+		# 左侧
 		navigation_bar.addAction(back_button)
 		navigation_bar.addAction(next_button)
 		navigation_bar.addAction(stop_button)
 		navigation_bar.addAction(reload_button)
+		# 分割线
 		navigation_bar.addSeparator()
+		# 导航栏
 		navigation_bar.addWidget(self.urlbar)
+		navigation_bar.addSeparator()
+		# 右侧
+		navigation_bar.addAction(baidu_button)
+		navigation_bar.addAction(zhihu_button)
+		navigation_bar.addAction(github_button)
 		navigation_bar.addAction(about_button)
 
 	
@@ -99,9 +118,15 @@ class MainWindow(QMainWindow):
 		if i == -1:
 			self.add_new_tab()
 
-	# 跳转到主页
-	def go_to_homepage(self):
-		self.add_new_tab(QUrl('http://www.baidu.com'), label='百度一下,你就知道')
+	# 书签1 - 百度
+	def go_to_baidu(self):
+		self.add_new_tab(QUrl('http://www.baidu.com'))
+	# 书签2 - Github
+	def go_to_github(self):
+		self.add_new_tab(QUrl('http://www.github.com'))
+	# 书签3 - 知乎
+	def go_to_zhihu(self):
+		self.add_new_tab(QUrl('http://www.zhihu.com'))
 	
 	# 标签页切换
 	def current_tab_changed(self, i):
