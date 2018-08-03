@@ -1,7 +1,7 @@
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from PyQt5.QtWebKitWidgets import *
+from PyQt5.QtWebEngineWidgets import QWebEnginePage, QWebEngineView
 
 import sys
 
@@ -33,8 +33,7 @@ class MainWindow(QMainWindow):
 
 		new_tab_action = QAction(QIcon('icons/add_page.png'), 'New Page', self)
 		new_tab_action.triggered.connect(self.add_new_tab)
-
-
+		
 		# 添加导航栏
 		navigation_bar = QToolBar('Navigation')
 		# 设定图标的大小
@@ -102,7 +101,7 @@ class MainWindow(QMainWindow):
 	# 添加新的标签页
 	def add_new_tab(self, qurl=QUrl(''), label='新标签页'):
 		# 为标签创建新网页
-		browser = QWebView()
+		browser = QWebEngineView()
 		browser.setUrl(qurl)
 		i = self.tabs.addTab(browser, label)
 
@@ -111,7 +110,7 @@ class MainWindow(QMainWindow):
 		browser.urlChanged.connect(lambda qurl, browser=browser: self.renew_urlbar(qurl, browser))
 
 		browser.loadFinished.connect(lambda _, i=i, browser=browser: 
-			self.tabs.setTabText(i, browser.page().mainFrame().title()))
+			self.tabs.setTabText(i, browser.page().title()))
 
 	# 双击标签栏打开新页面
 	def tab_open_doubleclick(self, i):
@@ -120,17 +119,21 @@ class MainWindow(QMainWindow):
 
 	# 书签1 - 百度
 	def go_to_baidu(self):
-		self.add_new_tab(QUrl('http://www.baidu.com'))
+		q = QUrl('http://www.baidu.com')
+		self.tabs.currentWidget().setUrl(q)
 	# 书签2 - Github
 	def go_to_github(self):
-		self.add_new_tab(QUrl('http://www.github.com'))
+		q = QUrl('http://www.github.com')
+		self.tabs.currentWidget().setUrl(q)
 	# 书签3 - 知乎
 	def go_to_zhihu(self):
-		self.add_new_tab(QUrl('http://www.zhihu.com'))
+		q = QUrl('http://www.zhihu.com')
+		self.tabs.currentWidget().setUrl(q)
 	
 	# 标签页切换
 	def current_tab_changed(self, i):
 		qurl = self.tabs.currentWidget().url()
+		# self.tabs.setTabText(i, browser.page().mainFrame().title())
 		self.renew_urlbar(qurl, self.tabs.currentWidget())
 
 	def close_current_tab(self, i):
@@ -140,7 +143,7 @@ class MainWindow(QMainWindow):
 		self.tabs.removeTab(i)
 
 	def about(self):  
-            QMessageBox.about(self, '关于','Owl Browser v1.01 by Jack Li')
+            QMessageBox.about(self, '关于','Owl Browser v1.02 beta by Jack Li')
 
 # 创建应用
 app = QApplication(sys.argv)
