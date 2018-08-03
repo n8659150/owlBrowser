@@ -33,8 +33,7 @@ class MainWindow(QMainWindow):
 
 		new_tab_action = QAction(QIcon('icons/add_page.png'), 'New Page', self)
 		new_tab_action.triggered.connect(self.add_new_tab)
-
-
+		
 		# 添加导航栏
 		navigation_bar = QToolBar('Navigation')
 		# 设定图标的大小
@@ -120,17 +119,21 @@ class MainWindow(QMainWindow):
 
 	# 书签1 - 百度
 	def go_to_baidu(self):
-		self.add_new_tab(QUrl('http://www.baidu.com'), '百度')
+		q = QUrl('http://www.baidu.com')
+		self.tabs.currentWidget().setUrl(q)
 	# 书签2 - Github
 	def go_to_github(self):
-		self.add_new_tab(QUrl('http://www.github.com'), 'GitHub')
+		q = QUrl('http://www.github.com')
+		self.tabs.currentWidget().setUrl(q)
 	# 书签3 - 知乎
 	def go_to_zhihu(self):
-		self.add_new_tab(QUrl('http://www.zhihu.com'), '知乎')
+		q = QUrl('http://www.zhihu.com')
+		self.tabs.currentWidget().setUrl(q)
 	
 	# 标签页切换
 	def current_tab_changed(self, i):
 		qurl = self.tabs.currentWidget().url()
+		# self.tabs.setTabText(i, browser.page().mainFrame().title())
 		self.renew_urlbar(qurl, self.tabs.currentWidget())
 
 	def close_current_tab(self, i):
