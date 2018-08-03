@@ -2,15 +2,16 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtWebKitWidgets import *
+
 import sys
 
 class MainWindow(QMainWindow):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		# 设置窗口标题
-		self.setWindowTitle('Miku Browser')
+		self.setWindowTitle('Owl Browser')
 		# 设置窗口图标
-		self.setWindowIcon(QIcon('icons/mh.png'))
+		self.setWindowIcon(QIcon('icons/owl.png'))
 		self.resize(1440,900)
 		self.show()
 		# 添加 URL 地址栏
@@ -45,22 +46,23 @@ class MainWindow(QMainWindow):
 		next_button = QAction(QIcon('icons/next.png'), 'Forward', self)
 		stop_button = QAction(QIcon('icons/cross.png'), 'stop', self)
 		reload_button = QAction(QIcon('icons/renew.png'), 'reload', self)
-		home_button = QAction(QIcon('icons/mh.png'), 'home', self)
+		# home_button = QAction(QIcon('icons/owl.png'), 'home', self)
+		about_button = QAction(QIcon('icons/owl.png'), 'about', self)
 
 		back_button.triggered.connect(self.tabs.currentWidget().back)
 		next_button.triggered.connect(self.tabs.currentWidget().forward)
 		stop_button.triggered.connect(self.tabs.currentWidget().stop)
 		reload_button.triggered.connect(self.tabs.currentWidget().reload)
-		home_button.triggered.connect(self.go_to_homepage)
+		# home_button.triggered.connect(self.go_to_homepage)
+		about_button.triggered.connect(self.about)
 		# 将按钮添加到导航栏上
 		navigation_bar.addAction(back_button)
 		navigation_bar.addAction(next_button)
 		navigation_bar.addAction(stop_button)
 		navigation_bar.addAction(reload_button)
-		navigation_bar.addAction(home_button)
-
 		navigation_bar.addSeparator()
 		navigation_bar.addWidget(self.urlbar)
+		navigation_bar.addAction(about_button)
 
 	
 	# 响应回车按钮，将浏览器当前访问的 URL 设置为用户输入的 URL
@@ -112,7 +114,9 @@ class MainWindow(QMainWindow):
 			return
 		self.tabs.removeTab(i)
 
-		
+	def about(self):  
+            QMessageBox.about(self, '关于','Owl Browser v1.01 by Jack Li')
+
 # 创建应用
 app = QApplication(sys.argv)
 # 创建主窗口
