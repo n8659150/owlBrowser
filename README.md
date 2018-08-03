@@ -5,3 +5,7 @@
 - 也不是只有晚上才能使用的
 - 基于PyQt5
 - 版本迭代优化中
+
+## Icon source：
+Owl.png:
+- Design by thesquid from http://thesquid.ink/ 
