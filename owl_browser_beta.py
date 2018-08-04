@@ -60,7 +60,7 @@ class MainWindow(QMainWindow):
 		# 导航栏右侧书签
 		baidu_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/baidu.png'), 'baidu', self)
 		zhihu_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/zhihu.png'), 'zhihu', self)
-		github_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/bilibili.png'), 'bilibili', self)
+		bilibili_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/bilibili.png'), 'bilibili', self)
 		about_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/owl.png'), 'about', self)
 
 		# 导航栏右侧书签点击事件
