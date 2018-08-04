@@ -2,7 +2,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtWebEngineWidgets import QWebEnginePage, QWebEngineView
-
+import os
 import sys
 
 class MainWindow(QMainWindow):
@@ -11,7 +11,9 @@ class MainWindow(QMainWindow):
 		# 设置窗口标题
 		self.setWindowTitle('Owl Browser')
 		# 设置窗口图标
-		self.setWindowIcon(QIcon('icons/owl.png'))
+		# self.setWindowIcon(QIcon('icons/owl.png'))
+		self.setWindowIcon(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/owl.png'))
+		
 		self.resize(1440,900)
 		self.show()
 		# 添加 URL 地址栏
@@ -31,7 +33,7 @@ class MainWindow(QMainWindow):
 
 		self.setCentralWidget(self.tabs)
 
-		new_tab_action = QAction(QIcon('icons/add_page.png'), 'New Page', self)
+		new_tab_action = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/add_page.png'), 'New Page', self)
 		new_tab_action.triggered.connect(self.add_new_tab)
 		
 		# 添加导航栏
@@ -41,10 +43,10 @@ class MainWindow(QMainWindow):
 		self.addToolBar(navigation_bar)
 
 		# 导航栏左侧控制按钮
-		back_button = QAction(QIcon('icons/back.png'), 'Back', self)
-		next_button = QAction(QIcon('icons/next.png'), 'Forward', self)
-		stop_button = QAction(QIcon('icons/cross.png'), 'stop', self)
-		reload_button = QAction(QIcon('icons/renew.png'), 'reload', self)
+		back_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/back.png'), 'Back', self)
+		next_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons//next.png'), 'Forward', self)
+		stop_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons//cross.png'), 'stop', self)
+		reload_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons//renew.png'), 'reload', self)
 
 		# 导航栏左侧控制按钮点击事件
 		back_button.triggered.connect(self.tabs.currentWidget().back)
@@ -53,10 +55,10 @@ class MainWindow(QMainWindow):
 		reload_button.triggered.connect(self.tabs.currentWidget().reload)
 
 		# 导航栏右侧书签
-		baidu_button = QAction(QIcon('icons/baidu.png'), 'baidu', self)
-		zhihu_button = QAction(QIcon('icons/zhihu.png'), 'zhihu', self)
-		github_button = QAction(QIcon('icons/github.png'), 'github', self)
-		about_button = QAction(QIcon('icons/owl.png'), 'about', self)
+		baidu_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons//baidu.png'), 'baidu', self)
+		zhihu_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons//zhihu.png'), 'zhihu', self)
+		github_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons//github.png'), 'github', self)
+		about_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons//owl.png'), 'about', self)
 
 		# 导航栏右侧书签点击事件
 		baidu_button.triggered.connect(self.go_to_baidu)
@@ -143,13 +145,16 @@ class MainWindow(QMainWindow):
 		self.tabs.removeTab(i)
 
 	def about(self):  
-            QMessageBox.about(self, '关于','Owl Browser v1.02 beta by Jack Li')
+            QMessageBox.about(self, '关于','Owl Browser v1.03 beta by Jack Li')
 
-# 创建应用
-app = QApplication(sys.argv)
-# 创建主窗口
-window = MainWindow()
-# 显示窗口
-window.show()
-# 运行应用，并监听事件
-app.exec_()
+if __name__ == '__main__':
+	# 创建应用
+	app = QApplication(sys.argv)
+	
+	# 创建主窗口
+	window = MainWindow()
+	os.system('pause')
+	# 显示窗口
+	window.show()
+	# 运行应用，并监听事件
+	app.exec_()
