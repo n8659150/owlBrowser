@@ -18,6 +18,9 @@ class MainWindow(QMainWindow):
 		self.show()
 		# 添加 URL 地址栏
 		self.urlbar = QLineEdit()
+		font = QFont()
+		font.setFamily('微软雅黑')
+		self.urlbar.setFont(font)
 		# 让地址栏能响应回车按键信号
 		self.urlbar.returnPressed.connect(self.navigate_to_url)
 
@@ -29,7 +32,7 @@ class MainWindow(QMainWindow):
 		self.tabs.setTabsClosable(True)
 		self.tabs.tabCloseRequested.connect(self.close_current_tab)
 
-		self.add_new_tab(QUrl('http://www.zhihu.com'))
+		self.add_new_tab(QUrl('https://www.zhihu.com'))
 
 		self.setCentralWidget(self.tabs)
 
@@ -44,9 +47,9 @@ class MainWindow(QMainWindow):
 
 		# 导航栏左侧控制按钮
 		back_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/back.png'), 'Back', self)
-		next_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons//next.png'), 'Forward', self)
-		stop_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons//cross.png'), 'stop', self)
-		reload_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons//renew.png'), 'reload', self)
+		next_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/next.png'), 'Forward', self)
+		stop_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/cross.png'), 'stop', self)
+		reload_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/renew.png'), 'reload', self)
 
 		# 导航栏左侧控制按钮点击事件
 		back_button.triggered.connect(self.tabs.currentWidget().back)
@@ -55,15 +58,15 @@ class MainWindow(QMainWindow):
 		reload_button.triggered.connect(self.tabs.currentWidget().reload)
 
 		# 导航栏右侧书签
-		baidu_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons//baidu.png'), 'baidu', self)
-		zhihu_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons//zhihu.png'), 'zhihu', self)
-		github_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons//github.png'), 'github', self)
-		about_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons//owl.png'), 'about', self)
+		baidu_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/baidu.png'), 'baidu', self)
+		zhihu_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/zhihu.png'), 'zhihu', self)
+		github_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/bilibili.png'), 'bilibili', self)
+		about_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/owl.png'), 'about', self)
 
 		# 导航栏右侧书签点击事件
 		baidu_button.triggered.connect(self.go_to_baidu)
 		zhihu_button.triggered.connect(self.go_to_zhihu)
-		github_button.triggered.connect(self.go_to_github)
+		bilibili_button.triggered.connect(self.go_to_bilibili)
 		about_button.triggered.connect(self.about)
 
 		# 将按钮添加到导航栏上
@@ -81,7 +84,7 @@ class MainWindow(QMainWindow):
 		# 右侧
 		navigation_bar.addAction(baidu_button)
 		navigation_bar.addAction(zhihu_button)
-		navigation_bar.addAction(github_button)
+		navigation_bar.addAction(bilibili_button)
 		navigation_bar.addAction(about_button)
 
 	
@@ -121,15 +124,15 @@ class MainWindow(QMainWindow):
 
 	# 书签1 - 百度
 	def go_to_baidu(self):
-		q = QUrl('http://www.baidu.com')
+		q = QUrl('https://www.baidu.com')
 		self.tabs.currentWidget().setUrl(q)
-	# 书签2 - Github
-	def go_to_github(self):
-		q = QUrl('http://www.github.com')
+	# 书签2 - bilibili
+	def go_to_bilibili(self):
+		q = QUrl('https://www.bilibili.com')
 		self.tabs.currentWidget().setUrl(q)
 	# 书签3 - 知乎
 	def go_to_zhihu(self):
-		q = QUrl('http://www.zhihu.com')
+		q = QUrl('https://www.zhihu.com')
 		self.tabs.currentWidget().setUrl(q)
 	
 	# 标签页切换
@@ -145,15 +148,13 @@ class MainWindow(QMainWindow):
 		self.tabs.removeTab(i)
 
 	def about(self):  
-            QMessageBox.about(self, '关于','Owl Browser v1.03 beta by Jack Li')
+            QMessageBox.about(self, '关于','Owl Browser v1.07 beta by Jack Li')
 
 if __name__ == '__main__':
 	# 创建应用
 	app = QApplication(sys.argv)
-	
 	# 创建主窗口
 	window = MainWindow()
-	os.system('pause')
 	# 显示窗口
 	window.show()
 	# 运行应用，并监听事件
