@@ -33,6 +33,10 @@ v1.08
 
 v1.09版本会推出msi安装包
 
+## 下载地址：
+
+[点我下载](http://www.jackyangli.com/owl_browser/owl.zip)
+
 ## Icon source：
 Owl.png:
 - Design by thesquid from http://thesquid.ink/ 
