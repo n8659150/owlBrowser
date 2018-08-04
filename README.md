@@ -25,6 +25,11 @@ v1.05
 v1.06
 - 地址栏字体优化，目前为微软雅黑
 
+v1.07
+- 书签变更
+
+1.08版本会放出压缩后的exe文件
+
 ## Icon source：
 Owl.png:
 - Design by thesquid from http://thesquid.ink/ 
