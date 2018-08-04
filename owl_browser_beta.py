@@ -1,10 +1,10 @@
+#!/usr/bin/env python
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtWebEngineWidgets import QWebEnginePage, QWebEngineView
 import os
 import sys
-
 class MainWindow(QMainWindow):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
@@ -12,7 +12,7 @@ class MainWindow(QMainWindow):
 		self.setWindowTitle('Owl Browser')
 		# 设置窗口图标
 		# self.setWindowIcon(QIcon('icons/owl.png'))
-		self.setWindowIcon(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/owl.png'))
+		self.setWindowIcon(QIcon('./icons/owl.png'))
 		
 		self.resize(1440,900)
 		self.show()
@@ -32,11 +32,11 @@ class MainWindow(QMainWindow):
 		self.tabs.setTabsClosable(True)
 		self.tabs.tabCloseRequested.connect(self.close_current_tab)
 
-		self.add_new_tab(QUrl('https://www.zhihu.com'))
+		self.add_new_tab(QUrl('http://www.zhihu.com'))
 
 		self.setCentralWidget(self.tabs)
 
-		new_tab_action = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/add_page.png'), 'New Page', self)
+		new_tab_action = QAction(QIcon('./icons/add_page.png'), 'New Page', self)
 		new_tab_action.triggered.connect(self.add_new_tab)
 		
 		# 添加导航栏
@@ -46,10 +46,10 @@ class MainWindow(QMainWindow):
 		self.addToolBar(navigation_bar)
 
 		# 导航栏左侧控制按钮
-		back_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/back.png'), 'Back', self)
-		next_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/next.png'), 'Forward', self)
-		stop_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/cross.png'), 'stop', self)
-		reload_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/renew.png'), 'reload', self)
+		back_button = QAction(QIcon('./icons/back.png'), 'Back', self)
+		next_button = QAction(QIcon('./icons/next.png'), 'Forward', self)
+		stop_button = QAction(QIcon('./icons/cross.png'), 'stop', self)
+		reload_button = QAction(QIcon('./icons/renew.png'), 'reload', self)
 
 		# 导航栏左侧控制按钮点击事件
 		back_button.triggered.connect(self.tabs.currentWidget().back)
@@ -58,10 +58,10 @@ class MainWindow(QMainWindow):
 		reload_button.triggered.connect(self.tabs.currentWidget().reload)
 
 		# 导航栏右侧书签
-		baidu_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/baidu.png'), 'baidu', self)
-		zhihu_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/zhihu.png'), 'zhihu', self)
-		bilibili_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/bilibili.png'), 'bilibili', self)
-		about_button = QAction(QIcon('C:/Users/Jack/Desktop/owlBrowser-py35_pyqt_v5.6/icons/owl.png'), 'about', self)
+		baidu_button = QAction(QIcon('./icons/baidu.png'), 'baidu', self)
+		zhihu_button = QAction(QIcon('./icons/zhihu.png'), 'zhihu', self)
+		bilibili_button = QAction(QIcon('./icons/bilibili.png'), 'bilibili', self)
+		about_button = QAction(QIcon('./icons/owl.png'), 'about', self)
 
 		# 导航栏右侧书签点击事件
 		baidu_button.triggered.connect(self.go_to_baidu)
@@ -128,11 +128,11 @@ class MainWindow(QMainWindow):
 		self.tabs.currentWidget().setUrl(q)
 	# 书签2 - bilibili
 	def go_to_bilibili(self):
-		q = QUrl('https://www.bilibili.com')
+		q = QUrl('http://www.bilibili.com')
 		self.tabs.currentWidget().setUrl(q)
 	# 书签3 - 知乎
 	def go_to_zhihu(self):
-		q = QUrl('https://www.zhihu.com')
+		q = QUrl('http://www.zhihu.com')
 		self.tabs.currentWidget().setUrl(q)
 	
 	# 标签页切换
