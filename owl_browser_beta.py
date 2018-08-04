@@ -11,7 +11,6 @@ class MainWindow(QMainWindow):
 		# 设置窗口标题
 		self.setWindowTitle('Owl Browser')
 		# 设置窗口图标
-		# self.setWindowIcon(QIcon('icons/owl.png'))
 		self.setWindowIcon(QIcon('./icons/owl.png'))
 		
 		self.resize(1440,900)
@@ -148,7 +147,7 @@ class MainWindow(QMainWindow):
 		self.tabs.removeTab(i)
 
 	def about(self):  
-            QMessageBox.about(self, '关于','Owl Browser v1.07 beta by Jack Li')
+            QMessageBox.about(self, '关于','Owl Browser v1.08 beta by Jack Li')
 
 if __name__ == '__main__':
 	# 创建应用
