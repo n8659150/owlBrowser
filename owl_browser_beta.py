@@ -1,10 +1,12 @@
 #!/usr/bin/env python
+from PyQt5 import QtCore
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
-from PyQt5.QtWebEngineWidgets import QWebEnginePage, QWebEngineView
+from PyQt5.QtWebEngineWidgets import QWebEnginePage, QWebEngineView,QWebEngineSettings
 import os
 import sys
+
 class MainWindow(QMainWindow):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
@@ -43,7 +45,6 @@ class MainWindow(QMainWindow):
 		# 设定图标的大小
 		navigation_bar.setIconSize(QSize(16, 16))
 		self.addToolBar(navigation_bar)
-
 		# 导航栏左侧控制按钮
 		back_button = QAction(QIcon('./icons/back.png'), 'Back', self)
 		next_button = QAction(QIcon('./icons/next.png'), 'Forward', self)
@@ -85,7 +86,6 @@ class MainWindow(QMainWindow):
 		navigation_bar.addAction(zhihu_button)
 		navigation_bar.addAction(bilibili_button)
 		navigation_bar.addAction(about_button)
-
 	
 	# 响应回车按钮，将浏览器当前访问的 URL 设置为用户输入的 URL
 	def navigate_to_url(self):
@@ -106,6 +106,9 @@ class MainWindow(QMainWindow):
 	def add_new_tab(self, qurl=QUrl(''), label='新标签页'):
 		# 为标签创建新网页
 		browser = QWebEngineView()
+		self.webSettings = browser.settings()
+		self.webSettings.setAttribute(QWebEngineSettings.PluginsEnabled,True)
+		self.webSettings.setAttribute(QWebEngineSettings.JavascriptEnabled,True)
 		browser.setUrl(qurl)
 		i = self.tabs.addTab(browser, label)
 
@@ -147,7 +150,7 @@ class MainWindow(QMainWindow):
 		self.tabs.removeTab(i)
 
 	def about(self):  
-            QMessageBox.about(self, '关于','Owl Browser v1.08 beta by Jack Li')
+            QMessageBox.about(self, '关于','Owl Browser v1.09 beta by Jack Li')
 
 if __name__ == '__main__':
 	# 创建应用
