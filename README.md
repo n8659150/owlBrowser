@@ -38,7 +38,7 @@ v1.10 计划推出msi安装包
 
 ## 下载地址：
 
-[点我下载](http://www.jackyangli.com/owl_browser/owl.zip)
+[点我下载](https://pan.baidu.com/s/1KaAgqsfU9Ri70vVGZ3a7EA)
 
 ## Icon source：
 Owl.png:
