@@ -33,6 +33,8 @@ v1.08
 
 v1.09版本会推出msi安装包
 
+作者:妈诶近期工作超忙，1.09版本估计要搁浅。。不过正在研究用pyside2重写这个浏览器
+
 ## 下载地址：
 
 [点我下载](http://www.jackyangli.com/owl_browser/owl.zip)
