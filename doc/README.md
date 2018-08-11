@@ -64,25 +64,127 @@
 
 
 ## 开发指南
-TODO
+
+接下去的篇幅将会简单介绍代码骨架及如何实现浏览器的基本功能
+
+### 代码骨架
+
+本浏览器基于python的图形库PyQt实现：定义一个窗体类，传入窗体控件，并在初始化函数中定义图标及相关控件，在类体中定义控件的交互方法，并在main函数中调用初始化函数，实现浏览器窗体及控件的加载和生成。
+
+```python
+from PyQt5 import QtCore
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtGui import *
+from PyQt5.QtWebEngineWidgets import QWebEnginePage, QWebEngineView,QWebEngineSettings
+import os
+import sys
+class MainWindow(QMainWindow):
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		# 设置窗口标题
+		self.setWindowTitle('Owl Browser')
+		# 设置窗口图标
+		self.setWindowIcon(QIcon('./icons/owl.png'))
+        ...
+    # 添加新的标签页
+    def add_new_tab(self, qurl=QUrl(''), label='新标签页'):
+        # 为标签创建新网页
+        browser = QWebEngineView()
+        self.webSettings = browser.settings()
+        self.webSettings.setAttribute(QWebEngineSettings.PluginsEnabled,True)
+        self.webSettings.setAttribute(QWebEngineSettings.JavascriptEnabled,True)
+        browser.setUrl(qurl)
+        i = self.tabs.addTab(browser, label)
+
+        self.tabs.setCurrentIndex(i)
+
+        browser.urlChanged.connect(lambda qurl, browser=browser: self.renew_urlbar(qurl, browser))
+
+        browser.loadFinished.connect(lambda _, i=i, browser=browser: 
+            self.tabs.setTabText(i, browser.page().title()))
+    ...
+    if __name__ == '__main__':
+    # 创建应用
+    app = QApplication(sys.argv)
+    # 创建主窗口
+    window = MainWindow()
+    # 显示窗口
+    window.show()
+    # 运行应用，并监听事件
+    app.exec_()
+```
 
 ### 定制浏览器图标
-TODO
+浏览器窗口左上角小图标 和 exe文件的图标可根据需求自行更改
+
+- 左上角小图标
+
+```python 
+# 设置窗口图标，图片路径改成对应路径即可
+self.setWindowIcon(QIcon('./icons/owl.png'))
+```
+- exe文件图标
+
+将在"打包"一节讲解
 
 ### 定制工具栏图标
-TODO
+工具栏图标如"前进","后退","刷新"等也可定制，代码片段如下：
+```python
+# 添加导航栏
+navigation_bar = QToolBar('Navigation')
+# 设定图标
+back_button = QAction(QIcon('./icons/back.png'), 'Back', self)
+# 为按钮绑定点击事件
+back_button.triggered.connect(self.tabs.currentWidget().back)
+# 将按钮添加到导航栏上
+navigation_bar.addAction(back_button)
+```
 
 ### 定制书签
-TODO
+和工具栏图标相同，书签的添加也需要经历3个步骤：1. 指定图标;2. 绑定点击事件(书签的跳转函数需要自行定义) 和 3.添加至导航栏：
+
+```python 
+def go_to_baidu(self):
+    q = QUrl('https://www.baidu.com')
+    self.tabs.currentWidget().setUrl(q)
+baidu_button = QAction(QIcon('./icons/baidu.png'), 'baidu', self)
+baidu_button.triggered.connect(self.go_to_baidu)
+navigation_bar.addAction(baidu_button)
+```
 
 ### 定制地址栏字体
-TODO
+浏览器地址栏的字体也可自行定制：
 
-### 编译
-TODO
+```python
+# 添加 URL 地址栏
+self.urlbar = QLineEdit()
+font = QFont()
+# 设置字体
+font.setFamily('微软雅黑')
+self.urlbar.setFont(font)
+```
+
+### 执行
+```shell 
+python yourfilename.python
+```
 
 ### 打包
-TODO
+本浏览器通过pyinstaller打包。
+先安装pyinstaller：
+
+```shell
+pip install pyinstaller
+```
+
+再进入代码文件所在的目录，执行pyinstaller的打包命令，其中--icon后所指定的为打包后exe的图标文件，需为ico格式，且路径需为绝对路径:
+
+```shell
+cd owl
+pyinstaller -F -w --icon=C:\owl.ico --clean owl.py
+```
+
 
 ## 关于此文档
 
