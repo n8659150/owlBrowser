@@ -1,10 +1,10 @@
 #!/usr/bin/env python
-from PyQt5 import QtCore
-from PyQt5.QtCore import *
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
+# from PyQt5 import QtCore
+from PyQt5.QtCore import QUrl,QSize
+from PyQt5.QtWidgets import QApplication,QMainWindow,QDesktopWidget,QLineEdit,QTabWidget,QAction,QToolBar,QMessageBox
+from PyQt5.QtGui import QIcon,QFont
 from PyQt5.QtWebEngineWidgets import QWebEnginePage, QWebEngineView,QWebEngineSettings
-import os
+# import os
 import sys
 
 class MainWindow(QMainWindow):
@@ -14,8 +14,11 @@ class MainWindow(QMainWindow):
 		self.setWindowTitle('Owl Browser')
 		# 设置窗口图标
 		self.setWindowIcon(QIcon('./icons/owl.png'))
-		
-		self.resize(1440,900)
+		# 获取用户屏幕大小并设置为尺寸的85%
+		available_geometry = QDesktopWidget().availableGeometry()
+		init_width = available_geometry.width() * 0.85
+		init_height = available_geometry.height() * 0.85
+		self.resize(init_width,init_height)
 		self.show()
 		# 添加 URL 地址栏
 		self.urlbar = QLineEdit()
@@ -33,7 +36,7 @@ class MainWindow(QMainWindow):
 		self.tabs.setTabsClosable(True)
 		self.tabs.tabCloseRequested.connect(self.close_current_tab)
 
-		self.add_new_tab(QUrl('http://www.zhihu.com'))
+		self.add_new_tab(QUrl('http://www.jackyangli.com/owl_browser/docs'))
 
 		self.setCentralWidget(self.tabs)
 
@@ -86,7 +89,6 @@ class MainWindow(QMainWindow):
 		navigation_bar.addAction(zhihu_button)
 		navigation_bar.addAction(bilibili_button)
 		navigation_bar.addAction(about_button)
-	
 	# 响应回车按钮，将浏览器当前访问的 URL 设置为用户输入的 URL
 	def navigate_to_url(self):
 		q = QUrl(self.urlbar.text())
@@ -134,7 +136,7 @@ class MainWindow(QMainWindow):
 		self.tabs.currentWidget().setUrl(q)
 	# 书签3 - 知乎
 	def go_to_zhihu(self):
-		q = QUrl('http://www.zhihu.com')
+		q = QUrl('https://www.zhihu.com/explore')
 		self.tabs.currentWidget().setUrl(q)
 	
 	# 标签页切换
@@ -150,7 +152,7 @@ class MainWindow(QMainWindow):
 		self.tabs.removeTab(i)
 
 	def about(self):  
-            QMessageBox.about(self, '关于','Owl Browser v1.09 beta by Jack Li')
+            QMessageBox.about(self, '关于','Owl Browser v1.11 by Jack Li')
 
 if __name__ == '__main__':
 	# 创建应用
