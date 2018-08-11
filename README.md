@@ -42,7 +42,7 @@ v1.11
 
 ## 下载地址：
 
-[点我下载](https://pan.baidu.com/s/1KaAgqsfU9Ri70vVGZ3a7EA)
+[点我下载](https://pan.baidu.com/s/1gRNP_BqsrNAhCfERL0Q6OA)
 
 ## Icon source：
 Owl.png:
